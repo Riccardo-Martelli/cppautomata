@@ -1,0 +1,152 @@
+.TH CPPAUTOMATA 1 "October 2026" "cppautomata 1.0" "User Commands"
+.SH NAME
+cppautomata \- Conway's Game of Life as a terminal screensaver
+.SH SYNOPSIS
+.B cppautomata
+.RB [ \-c
+.IR color ]
+.RB [ \-b
+.IR color ]
+.RB [ \-v
+.IR ms ]
+.RB [ \-s
+.IR n ]
+.RB [ \-t
+.IR hh:mm:ss ]
+.RB [ \-m
+.IR mode ]
+.RB [ \-r ]
+.RB [ \-h ]
+.RI [ glyph ]
+.SH DESCRIPTION
+.B cppautomata
+runs Conway's Game of Life full screen in the terminal using ncurses.
+The grid takes the size of the terminal at startup, and its opposite edges
+are identified, so the board is a torus: a pattern leaving on the right
+comes back on the left, and the same holds for top and bottom.
+.PP
+At every generation each cell looks at its eight neighbours and the
+standard rules apply:
+.IP \(bu 2
+a live cell with fewer than 2 live neighbours dies;
+.IP \(bu 2
+a live cell with 2 or 3 live neighbours survives;
+.IP \(bu 2
+a live cell with more than 3 live neighbours dies;
+.IP \(bu 2
+a dead cell with exactly 3 live neighbours becomes alive.
+.PP
+.I glyph
+is the string drawn for a live cell. The default is a full block
+(\[u2588]). Any UTF\-8 string works, for example an emoji or a Nerd Font
+icon, provided the terminal font can render it. Dead cells are drawn as
+a blank space.
+.SH OPTIONS
+.TP
+.BI \-c " color"
+Foreground color of live cells. Default:
+.BR red .
+See
+.B COLORS
+for the accepted names.
+.TP
+.BI \-b " color"
+Background color. Default:
+.BR black .
+.TP
+.BI \-v " ms"
+Milliseconds between two generations, integer greater than 0.
+Default:
+.BR 100 .
+.TP
+.BI \-s " n"
+Restart from the initial pattern every
+.I n
+generations. 0 means never. Default:
+.BR 0 .
+.TP
+.BI \-t " hh:mm:ss"
+Restart from the initial pattern after the given amount of run time,
+written as hours, minutes and seconds separated by colons, for example
+.BR 00:05:00 .
+.TP
+.BI \-m " mode"
+Initial pattern. One of:
+.RS
+.TP
+.B random
+every cell is alive with probability 1/2 (default);
+.TP
+.B glider
+a single glider in the top left corner;
+.TP
+.B blinker
+a single period 2 blinker.
+.RE
+.TP
+.B \-r
+Rainbow mode: change the foreground color at every generation, cycling
+through the 256 color palette.
+.TP
+.B \-h
+Print a short help and exit.
+.SH COLORS
+.BR black ,
+.BR red ,
+.BR green ,
+.BR yellow ,
+.BR blue ,
+.BR magenta ,
+.BR cyan ,
+.BR white .
+.SH INTERACTIVE COMMANDS
+.TP
+.B q
+Quit.
+.TP
+.B r
+Restart from the initial pattern.
+.TP
+.B c
+Switch to the next foreground color.
+.TP
+.B b
+Switch to the next background color.
+.SH EXAMPLES
+.TP
+.B cppautomata
+Random start, red full blocks on black, 100 ms per generation.
+.TP
+.B cppautomata \-c green \-v 50 \-s 500
+Green cells, 50 ms per generation, restart every 500 generations.
+.TP
+.B cppautomata \-m glider \-c cyan o
+A single glider drawn with the letter
+.BR o .
+.TP
+.B cppautomata \-r \-t 00:10:00 \[u25CF]
+Rainbow mode with round dots, restarting every 10 minutes.
+.SH EXIT STATUS
+.TP
+.B 0
+Normal exit, or after
+.BR \-h .
+.TP
+.B 1
+Unknown option or missing option argument.
+.SH NOTES
+The grid size is read once at startup: resizing the terminal while the
+program runs does not resize the board.
+.PP
+The
+.B \-t
+timer counts the sleep intervals set by
+.BR \-v ,
+not wall clock time, so with a large grid the real time before a restart
+can be longer than requested.
+.SH AUTHOR
+Riccardo Martelli
+.SH SEE ALSO
+.BR cmatrix (1),
+.BR asciiquarium (1),
+.BR ncurses (3X)
