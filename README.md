@@ -47,7 +47,7 @@
 | Fedora | `sudo dnf install gcc-c++ make ncurses-devel` |
 | Debian / Ubuntu | `sudo apt install g++ make libncurses-dev` |
 | Arch | `sudo pacman -S gcc make ncurses` |
-| macOS | `brew install ncurses` |
+| macOS (untested) | `brew install ncurses` |
 
 ## Install
 

@@ -2,7 +2,6 @@
 #include <thread>
 #include <iostream>
 #include <vector>
-#include <thread>
 #include <chrono>
 #include <random>
 #include <ncurses.h>
@@ -143,7 +142,7 @@ void helpfun(const char* prog){
 		BLU "glyph" RST " is the string drawn for a live cell (default: " BLU "█" RST "). Any UTF-8 string works, e.g. 🐉 or a Nerd Font icon.\n\n"
  
 		WHT "options:\n" RST
-		"  " GRN "--version" BLU " COLOR" RST "      check version\n"
+		"  " GRN "--version" RST  "     check version\n"
 		"  " GRN "-c" BLU " COLOR" RST "      foreground color of live cells (default: " BLU "red" RST ")\n"
 		"  " GRN "-b" BLU " COLOR" RST "      background color (default: " BLU "black" RST ")\n"
 		"  " GRN "-v" BLU " MS" RST "         milliseconds between generations, integer > 0 (default: " BLU "100" RST ")\n"
@@ -199,8 +198,11 @@ int color_from_name(const char* name){
 	else if(!strcmp(name, "magenta")) return COLOR_MAGENTA;
 	else if(!strcmp(name, "cyan")) return COLOR_CYAN;
 	else if(!strcmp(name, "white")) return COLOR_WHITE;
-
-	return -1;
+	else{
+		cerr << RED "error:" RST " unknown color '" << name << "'\n";
+		cerr << "available colors: black, red, green, yellow, blue, magenta, cyan, white\n";
+		exit(1);
+	}
 }
 // MAIN LOOP
 int main( int argc, char **argv ){
@@ -254,6 +256,10 @@ int main( int argc, char **argv ){
 		
 	}
 
+	if ( update_time <= 0 ){
+		cerr << RED "error:" RST " update time must be a positive integer\n";
+		exit(1);
+	}
 
 	// unistd return the index of the first non-option arg as optind
 	if ( optind < argc ){
@@ -284,9 +290,6 @@ int main( int argc, char **argv ){
 	new_sec = tot_sec;
 	
 	}
-
-	auto appo = 0;
-	auto start = chrono::steady_clock::now();
 
 	initscr();
 	curs_set( 0 );
@@ -320,8 +323,16 @@ int main( int argc, char **argv ){
 		int ch = getch();
 	  if( ch == 'q'){ break; } // on q  exits
 		if( ch == 'r'){ goto restart; } // on r reload
-		if( ch == 'c'){ DEFAULT_COLOR++; init_pair( 1, DEFAULT_COLOR, DEFAULT_BKG_COLOR ); }
-		if( ch == 'b'){ DEFAULT_BKG_COLOR++; init_pair( 1, DEFAULT_COLOR, DEFAULT_BKG_COLOR ); }
+		if( ch == 'c'){ 
+			DEFAULT_COLOR++;
+			if( DEFAULT_COLOR == 256 ){ DEFAULT_COLOR = 0; }
+			init_pair( 1, DEFAULT_COLOR, DEFAULT_BKG_COLOR );
+		}
+		if( ch == 'b'){ 
+			DEFAULT_BKG_COLOR++;
+			if( DEFAULT_BKG_COLOR== 256 ){  DEFAULT_BKG_COLOR= 0; }
+			init_pair( 1, DEFAULT_COLOR, DEFAULT_BKG_COLOR );
+		}
 		if( color_mode ){
 			
 			if(DEFAULT_COLOR == 256 ){ DEFAULT_COLOR = 0; }
