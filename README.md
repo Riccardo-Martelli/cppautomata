@@ -138,6 +138,7 @@ The new grid is then drawn cell by cell with ncurses and the program sleeps for 
 - The grid size is read once at startup: resizing the terminal does not resize the board.
 - The `-t` timer counts the sleep intervals, not wall clock time, so on large grids the real time before a restart is slightly longer.
 - Rainbow mode looks best in a 256 color terminal.
+- There is a universe behind cellular automata and more can be done too make this simulation more interesting, for more information see [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
 ## License
 

@@ -324,20 +324,16 @@ int main( int argc, char **argv ){
 	  if( ch == 'q'){ break; } // on q  exits
 		if( ch == 'r'){ goto restart; } // on r reload
 		if( ch == 'c'){ 
-			DEFAULT_COLOR++;
-			if( DEFAULT_COLOR == 256 ){ DEFAULT_COLOR = 0; }
+			DEFAULT_COLOR = (DEFAULT_COLOR + 1) % COLORS;
 			init_pair( 1, DEFAULT_COLOR, DEFAULT_BKG_COLOR );
 		}
 		if( ch == 'b'){ 
-			DEFAULT_BKG_COLOR++;
-			if( DEFAULT_BKG_COLOR== 256 ){  DEFAULT_BKG_COLOR= 0; }
+			DEFAULT_COLOR = (DEFAULT_COLOR + 1) % COLORS;
 			init_pair( 1, DEFAULT_COLOR, DEFAULT_BKG_COLOR );
 		}
-		if( color_mode ){
-			
-			if(DEFAULT_COLOR == 256 ){ DEFAULT_COLOR = 0; }
-			init_pair( 1, DEFAULT_COLOR++, DEFAULT_BKG_COLOR );
-	
+		if( color_mode ){		
+			DEFAULT_COLOR = (DEFAULT_COLOR + 1) % COLORS;
+			init_pair( 1, DEFAULT_COLOR, DEFAULT_BKG_COLOR );
 		}
 
 		grid = PrintgridUpdate( WIDTH, HEIGHT, grid );
