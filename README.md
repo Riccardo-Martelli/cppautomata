@@ -4,14 +4,14 @@
 
 <table align="center">
   <tr>
-    <td align="center"><img src="assets/random.gif" width="280" alt="random start"></td>
-    <td align="center"><img src="assets/glider.gif" width="280" alt="glider mode"></td>
-    <td align="center"><img src="assets/rainbow.gif" width="280" alt="rainbow mode"></td>
+    <td align="center"><img src="assets/standard.gif" width="280" alt="random start"></td>
+    <td align="center"><img src="assets/dots.gif" width="280" alt="glider mode"></td>
+    <td align="center"><img src="assets/gliph.gif" width="280" alt="rainbow mode"></td>
   </tr>
   <tr>
     <td align="center"><code>cppautomata</code></td>
-    <td align="center"><code>cppautomata -m glider -c cyan</code></td>
-    <td align="center"><code>cppautomata -r ●</code></td>
+    <td align="center"><code>cppautomata  -r -t 00:10:00 ●</code></td>
+    <td align="center"><code>cppautomata 🐉</code></td>
   </tr>
 </table>
 
@@ -82,6 +82,7 @@ Other targets:
 ```
 cppautomata [options] [glyph]
 
+  --version     show cppautomata version and exit
   -c COLOR      foreground color of live cells (default: red)
   -b COLOR      background color (default: black)
   -v MS         milliseconds between generations, integer > 0 (default: 100)

@@ -143,6 +143,7 @@ void helpfun(const char* prog){
 		BLU "glyph" RST " is the string drawn for a live cell (default: " BLU "█" RST "). Any UTF-8 string works, e.g. 🐉 or a Nerd Font icon.\n\n"
  
 		WHT "options:\n" RST
+		"  " GRN "--version" BLU " COLOR" RST "      check version\n"
 		"  " GRN "-c" BLU " COLOR" RST "      foreground color of live cells (default: " BLU "red" RST ")\n"
 		"  " GRN "-b" BLU " COLOR" RST "      background color (default: " BLU "black" RST ")\n"
 		"  " GRN "-v" BLU " MS" RST "         milliseconds between generations, integer > 0 (default: " BLU "100" RST ")\n"
@@ -159,7 +160,8 @@ void helpfun(const char* prog){
 		"  " GRN "b" RST "  next background color\n\n"
 		"see '" GRN "man cppautomata" RST "' for details\n";
 };
- 
+
+// usage error function for the case of wrong input
 int usage_error(const char* prog, const string& msg){
  
 	cerr << RED "error: " RST << msg << "\n";
@@ -168,7 +170,25 @@ int usage_error(const char* prog, const string& msg){
  
 	return 1;
 }
+
+// version function
+void version(){
  
+	cout << RED << R"(
+
+ ░▒▓██████▓▒░░▒▓███████▓▒░░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓██████▓▒░░▒▓██████████████▓▒░ ░▒▓██████▓▒░▒▓████████▓▒░▒▓██████▓▒░  
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░      ░▒▓███████▓▒░░▒▓███████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░ ░▒▓█▓▒░  ░▒▓████████▓▒░ 
+░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░ 
+ ░▒▓██████▓▒░░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░   ░▒▓█▓▒░   ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░ 
+)" << RST "\nversion 1.0\n";
+	cout << "Copyright (C) 2026 RICCARDO MARTELLI\n";
+};
+
+
+
 int color_from_name(const char* name){
 
 	if(!strcmp(name, "black")) return COLOR_BLACK;
@@ -184,6 +204,10 @@ int color_from_name(const char* name){
 }
 // MAIN LOOP
 int main( int argc, char **argv ){
+
+	for (int i = 0; i < argc; i++){
+			if(strcmp(argv[i], "--version") == 0){ version(); return 0; }
+	}
 
 	const char *blk;
 	int opt;
@@ -211,7 +235,7 @@ int main( int argc, char **argv ){
 	setlocale(LC_ALL, "");
 	
 		while((opt = getopt(argc, argv, "c:s:t:m:b:v:r h")) != -1){
-
+		
 		switch(opt){
 			case 'r': color_mode = true; break;
 			case 's': cycle_char = optarg; cycles = atoi(cycle_char);  break;
@@ -227,7 +251,10 @@ int main( int argc, char **argv ){
 
 				return 1;
 		}
+		
 	}
+
+
 	// unistd return the index of the first non-option arg as optind
 	if ( optind < argc ){
 		blk = argv[optind];
