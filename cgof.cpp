@@ -267,8 +267,8 @@ int main( int argc, char **argv ){
 		exit(1);
 	}
 
-	if ( cycles <= 0  and cycle_char != nullptr ){
-		cerr << RED "error:" RST " cycles before updating must be positive\n";
+	if ( cycles < 0  and cycle_char != nullptr ){
+		cerr << RED "error:" RST " cycles must be a non negative integer\n";
 		exit(1);
 	}
 
