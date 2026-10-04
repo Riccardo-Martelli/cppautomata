@@ -256,8 +256,19 @@ int main( int argc, char **argv ){
 		
 	}
 
+	if( mod_name != nullptr and strcmp(mod_name, "random") and strcmp(mod_name, "glider") and strcmp(mod_name, "blinker") ){
+		cerr << RED "error:" RST " unknown mode '" << mod_name << "'\n";
+		cerr << "available modes: random, glider, blinker\n";
+		return 1;
+	}
+
 	if ( update_time <= 0 ){
 		cerr << RED "error:" RST " update time must be a positive integer\n";
+		exit(1);
+	}
+
+	if ( cycles <= 0  and cycle_char != nullptr ){
+		cerr << RED "error:" RST " cycles before updating must be positive\n";
 		exit(1);
 	}
 
@@ -274,8 +285,8 @@ int main( int argc, char **argv ){
 	//        COLOR_CYAN    6
 	//        COLOR_WHITE   7
 
-	int hh,mm,ss;
-	char duep1, duep2;
+	int hh = 0,mm = 0,ss = 0;
+	char duep1 = 0, duep2 = 0;
 	
 	float tot_sec = 0;
 	float new_sec = 0;
@@ -283,9 +294,12 @@ int main( int argc, char **argv ){
 	if ( timer != nullptr ){
 	
 	stringstream ss_in(timer);
-
 	ss_in >> hh >> duep1 >> mm >> duep2 >> ss; // the stream is separeg the quantities
-
+		
+	if( ss_in.fail() or duep1 != ':' or duep2 != ':' or hh*3600 + mm*60 + ss <= 0 ){
+		cerr << RED "error:" RST " timer must be HH:MM:SS and greater than zero\n";
+		return 1;
+	}
 	tot_sec = hh*3600 + mm*60 + ss;
 	new_sec = tot_sec;
 	
