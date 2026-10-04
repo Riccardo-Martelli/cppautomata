@@ -2,18 +2,20 @@
 
 <p align="center"><i>Conway's Game of Life as a terminal screensaver, written in C++ with ncurses.</i></p>
 
-<table align="center">
-  <tr>
-    <td align="center"><img src="gifs/standard.gif" width="280" alt="random start"></td>
-    <td align="center"><img src="gifs/dots.gif" width="280" alt="glider mode"></td>
-    <td align="center"><img src="gifs/gliph.gif" width="280" alt="rainbow mode"></td>
-  </tr>
-  <tr>
-    <td align="center"><code>cppautomata</code></td>
-    <td align="center"><code>cppautomata  -r -t 00:10:00 ●</code></td>
-    <td align="center"><code>cppautomata 🐉</code></td>
-  </tr>
-</table>
+<p align="center">
+  <img src="gifs/standard.gif" width="700" alt="random start"><br>
+  <code>cppautomata</code>
+</p>
+
+<p align="center">
+  <img src="gifs/dots.gif" width="700" alt="rainbow dots"><br>
+  <code>cppautomata -r -t 00:10:00 ●</code>
+</p>
+
+<p align="center">
+  <img src="gifs/gliph.gif" width="700" alt="dragon glyph"><br>
+  <code>cppautomata 🐉</code>
+</p>
 
 - Full screen grid sized to your terminal, with toroidal wrapping: whatever leaves one edge comes back from the opposite one
 - Random, glider or blinker starting pattern
