@@ -1,4 +1,4 @@
-<h1 align="center">cppautomata</h1>
+<h1 align="center" style="color: red;">cppautomata</h1>
 
 <p align="center"><i>Conway's Game of Life as a terminal screensaver, written in C++ with ncurses.</i></p>
 
