@@ -4,9 +4,9 @@
 
 <table align="center">
   <tr>
-    <td align="center"><img src="assets/standard.gif" width="280" alt="random start"></td>
-    <td align="center"><img src="assets/dots.gif" width="280" alt="glider mode"></td>
-    <td align="center"><img src="assets/gliph.gif" width="280" alt="rainbow mode"></td>
+    <td align="center"><img src="gifs/standard.gif" width="280" alt="random start"></td>
+    <td align="center"><img src="gifs/dots.gif" width="280" alt="glider mode"></td>
+    <td align="center"><img src="gifs/gliph.gif" width="280" alt="rainbow mode"></td>
   </tr>
   <tr>
     <td align="center"><code>cppautomata</code></td>
