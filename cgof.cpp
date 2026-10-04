@@ -328,7 +328,7 @@ int main( int argc, char **argv ){
 			init_pair( 1, DEFAULT_COLOR, DEFAULT_BKG_COLOR );
 		}
 		if( ch == 'b'){ 
-			DEFAULT_COLOR = (DEFAULT_COLOR + 1) % COLORS;
+			DEFAULT_BKG_COLOR = (DEFAULT_BKG_COLOR + 1) % COLORS;
 			init_pair( 1, DEFAULT_COLOR, DEFAULT_BKG_COLOR );
 		}
 		if( color_mode ){		
