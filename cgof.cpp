@@ -124,7 +124,7 @@ void BlinkerInit( int WIDTH, int HEIGHT, vector< vector<bool> >& grid ){
 
 void RandomInit( int WIDTH, int HEIGHT, vector< vector<bool> >& grid ){
 	// initialize the cells
-	static default_random_engine generator( random_device{}() ); // random generator, so in the previous verision the random generator was initialized every time the function was called, which is not good, adding static makes it initialized only once and stays alive between calls so there is different random numbers every time the function is called
+	static default_random_engine generator( random_device{}() ); // random generator, so in the previous version the random generator was initialized every time the function was called, which is not good, adding static makes it initialized only once and stays alive between calls so there is different random numbers every time the function is called
 	discrete_distribution<int> distribution {1,1}; //weighted function that assigns 0,1 with probability proportional to the weight 
 	
 	for ( int i = 0; i < WIDTH;  i++ ){

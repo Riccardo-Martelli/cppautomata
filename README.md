@@ -135,8 +135,8 @@ The new grid is then drawn cell by cell with ncurses and the program sleeps for 
 ## Notes
 
 - Wide glyphs (emoji, some Nerd Font icons) take two terminal columns, so they overlap their right neighbour. Single width glyphs give the cleanest grid.
-- The grid size is read once at startup: resizing the terminal does not resize the board.
 - The `-t` timer counts the sleep intervals, not wall clock time, so on large grids the real time before a restart is slightly longer.
+- Resizing the terminal will make the simulation restart.
 - Rainbow mode looks best in a 256 color terminal.
 - There is a universe behind cellular automata and more can be done to make this simulation more interesting, for more information see [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
