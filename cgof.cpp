@@ -124,7 +124,7 @@ void BlinkerInit( int WIDTH, int HEIGHT, vector< vector<bool> >& grid ){
 
 void RandomInit( int WIDTH, int HEIGHT, vector< vector<bool> >& grid ){
 	// initialize the cells
-	default_random_engine generator;
+	static default_random_engine generator( random_device{}() ); // random generator, so in the previous verision the random generator was initialized every time the function was called, which is not good, adding static makes it initialized only once and stays alive between calls so there is different random numbers every time the function is called
 	discrete_distribution<int> distribution {1,1}; //weighted function that assigns 0,1 with probability proportional to the weight 
 	
 	for ( int i = 0; i < WIDTH;  i++ ){
@@ -337,6 +337,11 @@ int main( int argc, char **argv ){
 		int ch = getch();
 	  if( ch == 'q'){ break; } // on q  exits
 		if( ch == 'r'){ goto restart; } // on r reload
+		if( ch == KEY_RESIZE){ // on resize reload
+			getmaxyx( stdscr, HEIGHT, WIDTH );
+			grid = vector< vector<bool> >( WIDTH, vector<bool>( HEIGHT, false ) );
+			goto restart;
+		}
 		if( ch == 'c'){ 
 			DEFAULT_COLOR = (DEFAULT_COLOR + 1) % COLORS;
 			init_pair( 1, DEFAULT_COLOR, DEFAULT_BKG_COLOR );
